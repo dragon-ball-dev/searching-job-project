@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import stu.recruitmentweb.photographer.domain.payload.request.PhoneRequest;
 import stu.recruitmentweb.photographer.domain.payload.response.CurriculumVitaeResponse;
 import stu.recruitmentweb.photographer.domain.payload.response.JobDetailResponse;
+import stu.recruitmentweb.photographer.domain.payload.response.MessageResponse;
 import stu.recruitmentweb.photographer.service.JobseekerService;
 
 import javax.validation.Valid;
@@ -74,14 +75,14 @@ public class JobseekersController {
 
 
     @PostMapping("/submit-recruitment/{jobId}")
-    private ResponseEntity<String> submitRecruiter(@PathVariable Long jobId){
+    private ResponseEntity<MessageResponse> submitRecruiter(@PathVariable Long jobId){
         jobseekerService.submitRecruitment(jobId);
-        return ResponseEntity.ok("Nộp đơn ứng tuyển thành công!!!");
+        return ResponseEntity.ok(MessageResponse.builder().message("Nộp đơn ứng tuyển thành công!!!").build());
     }
 
     @DeleteMapping("/delete-recruitment/{id}")
     private ResponseEntity<String> deleteRecruitment(@PathVariable Long id) {
-        jobseekerService.deleteCvById(id);
+        jobseekerService.deleteRecruitmentById(id);
         return ResponseEntity.ok("Xóa đơn ứng tuyển thành công!!!");
 
     }

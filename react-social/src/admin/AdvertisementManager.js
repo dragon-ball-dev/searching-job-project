@@ -11,13 +11,15 @@ class AdvertisementManager extends React.Component {
         super(props);
         this.state = {
             listAdvertisment: [],
+            keyword: '',
         }
 
         this.loadAdvertisement = this.loadAdvertisement.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     loadAdvertisement() {
-        getAdvertisement(1, 1000)
+        getAdvertisement(1, 1000, this.state.keyword)
             .then(response => {
                 console.log("Response:", response)
                 this.setState({
@@ -30,18 +32,28 @@ class AdvertisementManager extends React.Component {
             });
     }
 
+    handleInputChange(event) {
+        const target = event.target;
+        const inputName = target.name;
+        const inputValue = target.value;
+
+        this.setState({
+            [inputName]: inputValue,
+        });      
+    }
+
     handleDeleteAdvertisement = (id) => {
-        deleteAdvertisement(id) 
-        .then(response => {
-            console.log(response)
-        }).catch(Alert.success("Xóa quảng cáo thành công !!!"));
+        deleteAdvertisement(id)
+            .then(response => {
+                console.log(response)
+            }).catch(Alert.success("Xóa quảng cáo thành công !!!"));
     }
 
     handleEditAdvertisement = (id) => {
-        this.props.history.push("/admin/advertisement/"+id);
+        this.props.history.push("/admin/advertisement/" + id);
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.loadAdvertisement();
     }
 
@@ -84,7 +96,10 @@ class AdvertisementManager extends React.Component {
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title">Quản lý quảng cáo</h5>
+                            
+                                <input type="text" class="form-control" name='keyword' value={this.state.keyword} onChange={this.handleInputChange} placeholder="Tìm kiếm..."/>
                             </div>
+
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -99,7 +114,7 @@ class AdvertisementManager extends React.Component {
                                         return (
                                             <tr>
                                                 <td>{adv.title}</td>
-                                                <td><img src={`http://localhost:8080/image/`+adv.image.replace('photographer/files/','')} height={"100px"} width={"100px"}/></td>
+                                                <td><img src={`http://localhost:8080/image/` + adv.image.replace('photographer/files/', '')} height={"100px"} width={"100px"} /></td>
                                                 <td class="d-none d-md-table-cell">{adv.description}</td>
                                                 <td class="table-action">
 

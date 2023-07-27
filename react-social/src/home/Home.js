@@ -118,7 +118,6 @@ class Home extends Component {
                     </div>
                 </div>
             </div>
-   
             <div class="home-blog-area blog-h-padding">
                 <div class="container">
                     <div class="row">

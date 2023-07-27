@@ -95,6 +95,9 @@ public class JobseekerServiceImpl extends BaseService implements JobseekerServic
 
     @Override
     public void submitRecruitment(Long jobId) {
+        if(getUser().getJobseeker().getCurriculumVitaeList().size() == 0) {
+            throw new BadRequestException("Bạn cần upload CV trước khi ứng tuyển!!");
+        }
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new BadRequestException("Công việc đã bị khóa!!"));
         Recruitment recruitment = new Recruitment(job, getUser());
         recruitment.setIsAnswer(false);

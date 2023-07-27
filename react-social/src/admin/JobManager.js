@@ -42,7 +42,9 @@ class JobManager extends React.Component {
         deleteJobById(id)
         .then().catch(message => {
             Alert.success("Ẩn công việc thành công")
+            window.location.reload();
         });
+        return <Redirect to={"/admin/job-manager"} />;
     }
     // componentDidUpdate(){
     //     this.loadJob();

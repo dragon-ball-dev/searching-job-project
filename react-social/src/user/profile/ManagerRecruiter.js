@@ -3,6 +3,7 @@ import SidebarNav from './SidebarNav';
 import Alert from 'react-s-alert';
 import { Redirect } from "react-router-dom";
 import { deleteByID, getAllRecruitment } from "../../util/APIUtils";
+import Footer from "../../home/Footer";
 
 class ManagerRecruiter extends React.Component{
     constructor(props) {
@@ -111,6 +112,7 @@ class ManagerRecruiter extends React.Component{
                     </main>
                 </div>
             </div>
+
         )
     }
 }

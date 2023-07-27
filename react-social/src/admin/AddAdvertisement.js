@@ -12,7 +12,7 @@ class AddAdvertisement extends React.Component {
         this.state = {
             title: '',
             image: '',
-            description:'',
+            description: '',
 
 
 
@@ -26,13 +26,13 @@ class AddAdvertisement extends React.Component {
 
     handleInputChange(event) {
         const target = event.target;
-        const inputName = target.name;        
+        const inputName = target.name;
         const inputValue = target.value;
 
         this.setState({
-            [inputName] : inputValue,
+            [inputName]: inputValue,
             image: event.target.files,
-        });        
+        });      
     }
 
 
@@ -40,9 +40,10 @@ class AddAdvertisement extends React.Component {
         event.preventDefault();
         const formData = new FormData();
         formData.append('title',this.state.title)
-
-        for (const key of Object.keys(this.state.image)) {
-            formData.append('image', this.state.image[key]);
+        if (this.state.image) {
+            for (const key of Object.keys(this.state.image)) {
+                formData.append('image', this.state.image[key]);
+            }
         }
         formData.append('description',this.state.description)
         FileService.uploadImageOfAdvertisement(formData).then((response) => {
@@ -50,7 +51,7 @@ class AddAdvertisement extends React.Component {
             Alert.success("Thêm quảng cáo thành công!!");
             this.setState({
                 title: '',
-                image: '',
+                image: null,
                 description:'',
             }) 
         }).catch(error => {
@@ -97,17 +98,17 @@ class AddAdvertisement extends React.Component {
                                 <form onSubmit={this.handleSubmit}>
                                     <div class="mb-3">
                                         <label class="form-label">Tên Quảng Cáo</label>
-                                        <input type="text" class="form-control" placeholder="Tên quảng cáo" name='title' 
-                                        value={this.state.title} onChange={this.handleInputChange}/>
+                                        <input type="text" class="form-control" placeholder="Tên quảng cáo" name='title'
+                                            value={this.state.title} onChange={this.handleInputChange} />
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Mô Tả</label>
-                                        <textarea class="form-control" placeholder="Mô tả" rows="1" style={{height: "65px"}} name='description'
-                                        value={this.state.description} onChange={this.handleInputChange}></textarea>
+                                        <textarea class="form-control" placeholder="Mô tả" rows="1" style={{ height: "65px" }} name='description'
+                                            value={this.state.description} onChange={this.handleInputChange}></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Tải Hình Ảnh</label>
-                                        <input class="form-control" type="file"  onChange={this.handleInputChange}/>
+                                        <input class="form-control" type="file" name='image' onChange={this.handleInputChange} />
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>

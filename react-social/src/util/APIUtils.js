@@ -243,10 +243,10 @@ export function getRecruiter() {
     });
 }
 
-export function getAdvertisement(pageNo, pageSize) {
+export function getAdvertisement(pageNo, pageSize, title) {
 
     return request({
-        url: API_BASE_URL + "/admin/advertisement?pageNo="+pageNo+"&pageSize="+pageSize,
+        url: API_BASE_URL + "/admin/advertisement?pageNo="+pageNo+"&pageSize="+pageSize+"&title="+title,
         method: 'GET'
     });
 }

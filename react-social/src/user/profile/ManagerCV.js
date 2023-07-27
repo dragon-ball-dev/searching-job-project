@@ -3,6 +3,7 @@ import { changeStatusById, deleteCVByID, getAllCV } from "../../util/APIUtils";
 import SidebarNav from './SidebarNav';
 import Alert from 'react-s-alert';
 import { Redirect } from "react-router-dom";
+import Footer from "../../home/Footer";
 
 class ManagerCV extends React.Component {
     constructor(props) {
@@ -126,6 +127,7 @@ class ManagerCV extends React.Component {
                         </div>
                     </main>
                 </div>
+        
             </div>
         )
     }

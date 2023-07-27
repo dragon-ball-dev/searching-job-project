@@ -79,6 +79,7 @@ class LoginForm extends Component {
             console.log(localStorage);
             Alert.success("You're successfully logged in!");
             this.props.history.push("/admin");
+            window.location.reload();
         }).catch(error => {
             Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         });

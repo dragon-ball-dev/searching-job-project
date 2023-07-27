@@ -7,13 +7,25 @@ class Advertisement extends React.Component {
         super(props);
         this.state = {
             listAdvertisment: [],
+            keyword: ''
         }
 
         this.loadAdvertisement = this.loadAdvertisement.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);   
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const inputName = target.name;
+        const inputValue = target.value;
+
+        this.setState({
+            [inputName]: inputValue,
+        });      
     }
 
     loadAdvertisement() {
-        getAdvertisement(1, 10)
+        getAdvertisement(1, 100,this.state.keyword)
             .then(response => {
                 console.log("Response:", response)
                 this.setState({
@@ -24,6 +36,10 @@ class Advertisement extends React.Component {
                     loading: false
                 });
             });
+    }
+
+    componentDidUpdate(){
+        this.loadAdvertisement()
     }
 
     componentDidMount() {
@@ -57,7 +73,7 @@ class Advertisement extends React.Component {
                                         return (
                                             <article class="blog_item">
                                                 <div class="blog_item_img">
-                                                    <img  src={`http://localhost:8080/image/`+adv.image.replace('photographer/files/','')}  height={"500px"} width={"800px"} alt="" />
+                                                    <img  src={`http://localhost:8080/image/`+adv.image.replace('photographer/files/','')}  height={"400px"} width={"600px"} alt="" />
                                                     <a href="#" class="blog_item_date">
                                                         <h3>10</h3>
                                                         <p>New</p>
@@ -73,7 +89,7 @@ class Advertisement extends React.Component {
                                             </article>
                                         )
                                     })}
-                                    <nav class="blog-pagination justify-content-center d-flex">
+                                    {/* <nav class="blog-pagination justify-content-center d-flex">
                                         <ul class="pagination">
                                             <li class="page-item">
                                                 <a href="#" class="page-link" aria-label="Previous">
@@ -92,7 +108,7 @@ class Advertisement extends React.Component {
                                                 </a>
                                             </li>
                                         </ul>
-                                    </nav>
+                                    </nav> */}
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -101,7 +117,8 @@ class Advertisement extends React.Component {
                                         <form action="#">
                                             <div class="form-group">
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" placeholder='Search Keyword'
+                                                    <input type="text" class="form-control" placeholder='Search Keyword' 
+                                                    name='keyword' value={this.state.keyword} onChange={this.handleInputChange}
                                                         onfocus="this.placeholder = ''"
                                                         onblur="this.placeholder = 'Search Keyword'" />
                                                     <div class="input-group-append">

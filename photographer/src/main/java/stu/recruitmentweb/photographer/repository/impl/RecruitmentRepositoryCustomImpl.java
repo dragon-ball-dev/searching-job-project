@@ -21,14 +21,13 @@ public class RecruitmentRepositoryCustomImpl implements RecruitmentRepositoryCus
     private final static String FROM_TABLE = "from tbl_recruitment tr ";
     private final static String JOIN_JOBSEEKER = "inner join tbl_jobseeker tj on tr.jobseeker_id = tj.id ";
     private final static String JOIN_JOB = "inner join tbl_job tj2 on tr.job_id = tj2.id ";
-    private final static String JOIN_CV = " inner join tbl_curriculum_vitae tcv  on tj.id  = tcv.jobseeker_id ";
+
 
     @Override
     public Page<Recruitment> getRecruitmentOfRecruiter(Pageable pageable, String createAt,Long jobseekerId, Long recruiterId,Boolean isAnswer, String jobName) {
         StringBuilder strQuery = new StringBuilder();
         strQuery.append(FROM_TABLE);
         strQuery.append(JOIN_JOBSEEKER);
-        strQuery.append(JOIN_CV);
         strQuery.append(JOIN_JOB);
         strQuery.append("WHERE 1=1");
 
@@ -52,13 +51,13 @@ public class RecruitmentRepositoryCustomImpl implements RecruitmentRepositoryCus
             params.put("jobName", jobName);
         }
 
-//        if(Boolean.TRUE.equals(isAnswer)) {
-//            strQuery.append(" AND tr.is_answer = :isAnswer");
-//            params.put("isAnswer", 1);
-//        } else {
-//            strQuery.append(" AND tr.is_answer = :isAnswer");
-//            params.put("isAnswer", 0);
-//        }
+        if(Objects.nonNull(isAnswer)) {
+            strQuery.append(" AND tr.is_answer = :isAnswer");
+            params.put("isAnswer", 1);
+        } else {
+            strQuery.append(" AND tr.is_answer = :isAnswer");
+            params.put("isAnswer", 0);
+        }
 
         String strSelectQuery = "SELECT * " + strQuery;
 

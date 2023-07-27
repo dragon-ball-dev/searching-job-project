@@ -32,18 +32,11 @@ class JobDetails extends React.Component {
     handleRecruitment = () => {
         submitRecruiment(this.props.match.params.id)
         .then(response => {
-            this.setState({
-                submit: response,
-            })
-        }).catch(error => {
-            Alert.error(error)
+            Alert.success(response.message)
         })
-        
-        if(this.state.submit !== '') {
-            Alert.error("Bạn hãy kiểm tra thông tin CV !!!!")
-        } else {
-            Alert.success("Bạn đã ứng tuyển thành công!!")
-        }
+        .catch(error => {
+            Alert.error((error && error.message))
+        })
     }
 
     componentDidMount() {

@@ -92,6 +92,7 @@ class Recruitment extends React.Component {
 									<tr>
 										<th style={{ width: "30%" }}>Tên Công Việc</th>
 										<th style={{ width: "15%" }}>Level</th>
+										<th style={{ width: "15%" }}>Email</th>
 										<th style={{ width: "15%" }}>Tên Ứng Viên</th>
 										<th style={{ width: "15%" }}>Xem CV</th>
 										<th style={{ width: "15%" }}>Trạng Thái</th>
@@ -104,6 +105,7 @@ class Recruitment extends React.Component {
 											<tr>
 												<td>{adv.job.jobTitle}</td>
 												<td>{adv.job.level}</td>
+												<td>{adv.jobseeker.user.email}</td>
 												<td>{adv.jobseeker.user.name}</td>
 												<td><button type="button" class="btn btn-success">
                                                 <a  href={`http://localhost:8080/document/`+adv.cv.replace('photographer/files/','')} target="_blank">Xem</a>    

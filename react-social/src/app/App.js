@@ -122,7 +122,8 @@ class App extends Component {
       authenticated: false,
       currentUser: null
     });
-    Alert.success("You're safely logged out!");
+    window.location.reload();
+    Alert.success("Bạn đăng xuất thành công!!!");
   }
 
   componentDidMount() {

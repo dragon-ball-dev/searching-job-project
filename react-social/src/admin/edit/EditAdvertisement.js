@@ -29,7 +29,7 @@ class EditAdvertisement extends React.Component {
         const target = event.target;
         const inputName = target.name;
         const inputValue = target.value;
-        this.handleClick = this.handleClick.bind(this);
+
         this.setState({
             [inputName]: inputValue,
             image: event.target.files,
@@ -52,12 +52,13 @@ class EditAdvertisement extends React.Component {
         event.preventDefault();
         const formData = new FormData();
         formData.append('title', this.state.title)
-        for (const key of Object.keys(this.state.image)) {
-            formData.append('image', this.state.image[key]);
+        if (this.state.image) {
+            for (const key of Object.keys(this.state.image)) {
+                formData.append('image', this.state.image[key]);
+            }
         }
-
         formData.append('description', this.state.description)
-        FileService.updateImageOfAdvertisement(this.props.match.params.id,formData).then((response) => {
+        FileService.updateImageOfAdvertisement(this.props.match.params.id, formData).then((response) => {
             console.log(response.data);
             Alert.success("Cập nhật quảng cáo thành công!!");
             this.props.history.push("/admin/advertisement-manager");
@@ -118,7 +119,7 @@ class EditAdvertisement extends React.Component {
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Tải Hình Ảnh</label>
-                                        <input class="form-control" type="file"  onChange={this.handleInputChange} />
+                                        <input class="form-control" type="file" onChange={this.handleInputChange} />
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -13,7 +13,7 @@ class AdvertisementFeater extends React.Component {
     }
 
     loadAdvertisement() {
-        getAdvertisement(1, 2)
+        getAdvertisement(1, 2,'')
             .then(response => {
                 console.log("Response:", response)
                 this.setState({
